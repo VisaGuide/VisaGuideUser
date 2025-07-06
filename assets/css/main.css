@@ -1958,3 +1958,8 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+
+
+.loading, .error-message, .sent-message { display: none; margin-top: 10px; text-align: center; }
+    .error-message { color: red; }
+    .sent-message { color: green; }
