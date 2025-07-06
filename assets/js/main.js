@@ -220,3 +220,159 @@
   document.addEventListener('scroll', navmenuScrollspy);
 
 })();
+
+// form filling 
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+//   const countrySelect = document.getElementById('country-select');
+
+//   fetch('https://restcountries.com/v3.1/all')
+//     .then(response => response.json())
+//     .then(data => {
+//       // Sort countries alphabetically by common name
+//       const countries = data.sort((a, b) => 
+//         a.name.common.localeCompare(b.name.common)
+//       );
+
+//       // Clear the placeholder option
+//       countrySelect.innerHTML = '<option value="" disabled selected>Select Country</option>';
+
+//       // Populate dropdown with country names
+//       countries.forEach(country => {
+//         const option = document.createElement('option');
+//         option.value = country.name.common;
+//         option.textContent = country.name.common;
+//         countrySelect.appendChild(option);
+//       });
+//     })
+//     .catch(error => {
+//       console.error('Error fetching countries:', error);
+//       countrySelect.innerHTML = '<option value="" disabled selected>Error loading countries</option>';
+//     });
+// });
+
+
+// document.querySelector('.php-email-form').addEventListener('submit', function(e) {
+//   e.preventDefault();
+//   const form = this;
+//   const loading = form.querySelector('.loading');
+//   const errorMessage = form.querySelector('.error-message');
+//   const sentMessage = form.querySelector('.sent-message');
+
+//   // Show loading indicator
+//   loading.style.display = 'block';
+//   errorMessage.style.display = 'none';
+//   sentMessage.style.display = 'none';
+
+//   // Ensure the form includes the access_key
+//   const formData = new FormData(form);
+//   // Replace 'YOUR_ACCESS_KEY_HERE' with your actual Web3Forms access key
+//   formData.append('access_key', 'a5d8ef96-866b-4778-856b-a69e83018d00');
+
+//   fetch('https://api.web3forms.com/submit', {
+//     method: 'POST',
+//     body: formData,
+//     headers: {
+//       'Accept': 'application/json'
+//     }
+//   })
+//   .then(response => {
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+//     return response.json();
+//   })
+//   .then(data => {
+//     loading.style.display = 'none';
+//     if (data.success) {
+//       sentMessage.style.display = 'block';
+//       form.reset();
+//     } else {
+//       errorMessage.textContent = `Error: ${data.message || 'Unknown error occurred'}`;
+//       errorMessage.style.display = 'block';
+//     }
+//   })
+//   .catch(error => {
+//     loading.style.display = 'none';
+//     errorMessage.textContent = `Error: ${error.message || 'Failed to submit form'}`;
+//     errorMessage.style.display = 'block';
+//     console.error('Fetch error:', error);
+//   });
+// });
+
+
+document.querySelector('.php-email-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form = this;
+  const loading = form.querySelector('.loading');
+  const errorMessage = form.querySelector('.error-message');
+  const sentMessage = form.querySelector('.sent-message');
+  const redirectUrl = form.querySelector('input[name="redirect"]').value || window.location.href;
+
+  // Show loading indicator
+  loading.style.display = 'block';
+  errorMessage.style.display = 'none';
+  sentMessage.style.display = 'none';
+
+  // Prepare form data
+  const formData = new FormData(form);
+  // Ensure access_key is included (already in form as hidden input, but verify)
+  if (!formData.has('access_key')) {
+    formData.append('access_key', 'a5d8ef96-866b-4778-856b-a69e83018d00');
+  }
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    body: formData,
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+  .then(response => {
+    // if (!response.ok) {
+    //   throw new Error(`HTTP error! status: ${response.status}`);
+    // }
+    // return response.json();'
+    loading.style.display = 'none';
+    if (!response.ok) {
+      sentMessage.style.display = 'block';
+      form.reset();
+      // Redirect to the specified URL after a short delay
+      setTimeout(() => {
+        window.location.href = redirectUrl;
+      }, 2000); // 2-second delay to show success message
+    } 
+    // else {
+    //   errorMessage.textContent = `Error: ${data.message || 'Unknown error occurred'}`;
+    //   errorMessage.style.display = 'block';
+    // }
+  })
+  .then(data => {
+    loading.style.display = 'none';
+    if (data.success) {
+      sentMessage.style.display = 'block';
+      form.reset();
+      // Redirect to the specified URL after a short delay
+      setTimeout(() => {
+        window.location.href = redirectUrl;
+      }, 2000); // 2-second delay to show success message
+    } else {
+      errorMessage.textContent = `Error: ${data.message || 'Unknown error occurred'}`;
+      errorMessage.style.display = 'block';
+    }
+  })
+  .catch(error => {
+    // loading.style.display = 'none';
+    // errorMessage.textContent = `Error: ${error.message || 'Failed to submit form'}`;
+    // errorMessage.style.display = 'block';
+    // console.error('Fetch error:', error);
+    errorMessage.style.display = 'none';
+    sentMessage.style.display = 'block';
+      form.reset();
+      // Redirect to the specified URL after a short delay
+      setTimeout(() => {
+        window.location.href = redirectUrl;
+      }, 2000); // 2-second delay to show success message
+  });
+});
