@@ -72,7 +72,7 @@
             <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
               <div class="stat-item">
                 <span class="stat-number">4+</span>
-                <span class="stat-label">Years Experience</span>
+                <span class="stat-label">Years Established</span>
               </div>
               <div class="stat-item">
                 <span class="stat-number">250+</span>
@@ -2333,28 +2333,57 @@
           <div class="col-lg-6">
             <div class="contact-form card" data-aos="fade-up" data-aos-delay="300">
               <div class="card-body p-4 p-lg-5">
-                <form action="https://formsubmit.co/visaguide2025@gmail.com" method="post" class="php-email-form">
-                  <div class="row gy-4">
-                    <div class="col-12">
-                      <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                    </div>
-                    <div class="col-12">
-                      <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                    </div>
-                    <div class="col-12">
-                      <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                    </div>
-                    <div class="col-12">
-                      <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-                    </div>
-                    <div class="col-12 text-center">
-                      <div class="loading">Loading</div>
-                      <div class="error-message"></div>
-                      <div class="sent-message">Your message has been sent. Thank you!</div>
-                      <button type="submit" class="btn btn-submit w-100">Submit Message</button>
-                    </div>
+              <form action="https://api.web3forms.com/submit" method="POST" class="php-email-form">
+                <input type="hidden" name="access_key" value="a5d8ef96-866b-4778-856b-a69e83018d00">
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                <input type="hidden" name="redirect" value="https://visaguide.github.io/visaguideuser/">
+                <input type="hidden" name="_to" value="visaguide2025@gmail.com">
+                <div class="row gy-4">
+                  <div class="col-12">
+                    <input type="text" name="name" class="form-control" placeholder="Full Name" required>
                   </div>
-                </form>
+                  <div class="col-12">
+                    <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                  </div>
+                  <div class="col-12">
+                    <select name="visa_type" class="form-control" required>
+                      <option value="" disabled selected>Select Visa Type</option>
+                      <option value="tourist">Tourist Visa</option>
+                      <option value="work">Work Visa</option>
+                      <option value="student">Student Visa</option>
+                      <option value="business">Business Visa</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <select name="country" class="form-control" required>
+                      <option value="" disabled selected>Select Country</option>
+                      <option value="USA">United States</option>
+                      <option value="Canada">Canada</option>
+                      <option value="UK">United Kingdom</option>
+                      <option value="Australia">Australia</option>
+                      <option value="Germany">Germany</option>
+                      <option value="France">France</option>
+                      <option value="India">India</option>
+                      <option value="China">China</option>
+                      <option value="Japan">Japan</option>
+                      <option value="Brazil">Brazil</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <input type="text" name="purpose" class="form-control" placeholder="Purpose of Appointment (e.g., Visa Interview, Document Submission)" required>
+                  </div>
+                  <div class="col-12">
+                    <textarea class="form-control" name="message" rows="6" placeholder="Additional Details or Message" required></textarea>
+                  </div>
+                  <div class="col-12 text-center">
+                    <div class="loading">Loading</div>
+                    <!-- <div class="error-message"></div> -->
+                    <div class="sent-message">Your visa appointment request has been sent. Thank you!</div>
+                    <button type="submit" class="btn btn-submit w-100">Submit Request</button>
+                  </div>
+                </div>
+              </form>
               </div>
             </div>
           </div>
